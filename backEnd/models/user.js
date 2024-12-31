@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const Joi = require('joi');
-const passwordComplexity = require('joi-password-complexity');
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import Joi from 'joi';
+import passwordComplexity from 'joi-password-complexity';
 
 
 const userSchema = new mongoose.Schema(
@@ -35,8 +35,9 @@ const userSchema = new mongoose.Schema(
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id, role: this.role }, process.env.JWT_SECRET, {
-    expiresIn: '7d'
+    expiresIn: process.env.JWT_EXPIRE
 });
+console.log("Inside User Model", token);
   return token;
 };
 
@@ -53,4 +54,4 @@ const validateUser = (user) => {
     return schema.validate(user);
     }
 
-module.exports = User;
+export { User, validateUser };

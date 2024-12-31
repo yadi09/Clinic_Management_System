@@ -1,21 +1,45 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+import { jwtDecode } from 'jwt-decode';
+import "../assets/css/LoginPage.css";
 
-const LoginPage = () => {
+function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      alert("Please fill in both email and password fields.");
+      return;
+    }
+
     try {
-    // Replace this with actual authentication logic
+      const response = await fetch('http://localhost:3000/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      localStorage.setItem('token', data.data);
+
+      const decodedToken = jwtDecode(data.data);
+      console.log("Inside Login Page", decodedToken);
+      if (decodedToken.role === 'receptionist') {
+        navigate('/reception');
+      } else if (decodedToken.role === 'doctor') {
+        navigate('/doctor');
+      } else if (decodedToken.role === 'admin') {
+        navigate('/admin');
+      }
     } catch (error) {
       console.error(error);
     }
-
   };
 
   return (
@@ -24,20 +48,20 @@ const LoginPage = () => {
         <h2>Login</h2>
         <input
           type="email"
+          name="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          onChange={(e) => setEmail(e.target.value)} />
         <input
           type="password"
+          name="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">Login</button>
       </form>
     </div>
   );
-};
+}
 
 export default LoginPage;
