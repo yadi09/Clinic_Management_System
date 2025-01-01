@@ -29,7 +29,6 @@ function LoginPage() {
       localStorage.setItem('token', data.data);
 
       const decodedToken = jwtDecode(data.data);
-      console.log("Inside Login Page", decodedToken);
       if (decodedToken.role === 'receptionist') {
         navigate('/reception');
       } else if (decodedToken.role === 'doctor') {
