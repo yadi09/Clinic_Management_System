@@ -5,6 +5,9 @@ import { connectDB } from './db.js';
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import patientRouter from './routes/patient.js';
+import doctorRouter from './routes/doctor.js';
+import assignPatientRouter from './routes/asignPatient.js';
+import patientsRouter from './routes/patients.js';
 // import config from 'config';
 
 dotenv.config();
@@ -22,6 +25,9 @@ app.use(express.json());
 app.use('/api/addUser', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/addPatient', patientRouter);
+app.use('/api/getDoctors', doctorRouter);
+app.use('/api/assign-patient', assignPatientRouter);
+app.use('/api/patients', patientsRouter);
 
 
 // Port

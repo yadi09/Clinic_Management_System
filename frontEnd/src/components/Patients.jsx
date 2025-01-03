@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PatientRegistration from './PatientRegistration';
 import PatientProfile from './PatientProfile';
+import axios from 'axios';
 
 const patients = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [patientData, setPatientData] = useState([]);
+
+  useEffect(() => {
+    // Fetch patient data from the server
+    const fetchPatients = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/patients');
+        setPatientData(response.data);
+      } catch (error) {
+        console.error('Error fetching patient data:', error);
+      }
+    }
+    fetchPatients();
+  }, []);
 
   const handleViewClick = (patient) => {
     setSelectedPatient(patient); // Pass the patient data to the profile page
@@ -16,11 +31,6 @@ const patients = () => {
     setShowProfile(false);
     setSelectedPatient(null);
   };
-
-  const patientList = [
-    { id: 1, name: 'John Doe', department: 'Cardiology', year: '3rd Year' },
-    { id: 2, name: 'Jane Smith', department: 'Neurology', year: '2nd Year' },
-  ];
 
   return (
     <>
@@ -40,20 +50,28 @@ const patients = () => {
             <table className="patients-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Card Number</th>
                   <th>Name</th>
+                  <th>Student ID</th>
+                  <th>age</th>
+                  <th>Gender</th>
                   <th>Department</th>
                   <th>Year</th>
+                  <th>status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {patientList.map((patient) => (
-                  <tr key={patient.id}>
-                    <td>{patient.id}</td>
+                {patientData.map((patient) => (
+                  <tr key={patient._id}>
+                    <td>{patient.cardNumber}</td>
                     <td>{patient.name}</td>
+                    <td>{patient.studentId}</td>
+                    <td>{patient.age}</td>
+                    <td>{patient.gender}</td>
                     <td>{patient.department}</td>
                     <td>{patient.year}</td>
+                    <td>{patient.status}</td>
                     <td>
                       <button className="btn btn-view" onClick={() => handleViewClick(patient)}>
                         View
