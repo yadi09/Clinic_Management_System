@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import './MedicalHistoryRegister.css'; // Include appropriate styles
+import GeneratePrescription from './GeneratePrescription';
+import GenerateReferral from './GenerateReferral';
 
 const MedicalHistoryRegister = ({ patient, onClose }) => {
   const [selectedDiseases, setSelectedDiseases] = useState([]);
   const [availableDiseases] = useState(["Flu", "Diabetes", "Hypertension", "Asthma", "COVID-19"]);
+  const [showPrescription, setShowPrescription] = useState(false);
+  const [showReferral, setShowReferral] = useState(false);
+
   const [formData, setFormData] = useState({
     presentHistory: "",
     pastPresentHistory: "",
@@ -37,7 +42,19 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
   };
 
   return (
-    <div className="medical-history-register">
+    <>
+    {showPrescription ? (
+      <GeneratePrescription
+          patient={patient}
+          onClose={() => setShowPrescription(false)}
+        />
+    ) : showReferral ? (
+      <GenerateReferral
+          patient={patient}
+          onClose={() => setShowReferral(false)}
+        />
+    ) : (
+      <div className="medical-history-register">
       {/* Header Section */}
       <div className="register-header">
         <h2>Add New Medical History</h2>
@@ -57,8 +74,14 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
         {/* Buttons at the top-right corner */}
         <div className="form-header">
           <div className="buttons">
-            <button className="btn btn-prescription">Generate Prescription</button>
-            <button className="btn btn-referral">Generate Referrals</button>
+            <button 
+            className="btn btn-prescription" 
+            onClick={() => setShowPrescription(true)}
+            >Generate Prescription</button>
+            <button 
+            className="btn btn-referral"
+            onClick={() => setShowReferral(true)}
+            >Generate Referrals</button>
           </div>
         </div>
         {/* Form */}
@@ -151,6 +174,10 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
       </form>
     </div>
     </div>
+    )
+    }
+  
+    </>
   );
 };
 

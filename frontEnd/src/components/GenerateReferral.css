@@ -1,0 +1,85 @@
+.generate-referral {
+    width: 80%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: #f8f9fa;
+    border-left: 1px solid #ddd;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+  }
+  
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .referral-form {
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+
+  input[type="text"], input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  textarea {
+    resize: vertical;
+    height: 60px;
+    margin-top: 5px;
+  }
+  
+  .btn-submit {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 15px;
+  }
+  
+  .btn-submit:hover {
+    background-color: #218838;
+  }
+  

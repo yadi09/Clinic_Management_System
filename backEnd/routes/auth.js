@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
         if (!UserInDb) return res.status(400).send({ message: 'User Not Found' });
 
         const validPassword = await bcrypt.compare(req.body.password, UserInDb.password);
-        if (!validPassword) return res.status(400).send(res.send({ message: 'Invalid email or password' }));
+        if (!validPassword) return res.status(400).send({ message: 'Invalid email or password' });
 
         const token = UserInDb.generateAuthToken();
         console.log("Inside Auth Route", token);
