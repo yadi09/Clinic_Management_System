@@ -39,13 +39,13 @@ const PatientProfile = ({ patient, onClose }) => {
 
   return (
     <>
-    {showMedicalHistory && (
+    {showMedicalHistory ? (
       <MedicalHistory
         patient={patient}
         onClose={handleCloseMedicalHistory}
       />
-    )}
-    <div className="patient-profile">
+    ) : (
+      <div className="patient-profile">
       {/* Header Section */}
       <div className="profile-header">
         <h2>Patient Profile Page</h2>
@@ -116,6 +116,7 @@ const PatientProfile = ({ patient, onClose }) => {
         </table>
       </div>
     </div>
+    )}
     </>
   );
 };

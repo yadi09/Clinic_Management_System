@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./MedicalHistory.css";
+import MedicalHistoryRegister from "./MedicalHistoryRegister";
 
 const MedicalHistory = ({ patient, onClose }) => {
+  const [showMedicalHistory, setShowMedicalHistory] = useState(false);
   const medicalHistories = [
     { id: 1, date: "2024-01-05", diagnosis: "Flu", doctor: "Dr. Smith" },
     { id: 2, date: "2024-01-12", diagnosis: "Allergy", doctor: "Dr. Adams" },
@@ -11,12 +13,20 @@ const MedicalHistory = ({ patient, onClose }) => {
     alert(`Viewing details for medical history ID: ${historyId}`);
   };
 
-  const handleCreateNew = () => {
-    alert("Creating a new medical history entry.");
-  };
+  // const handleCreateNew = () => {
+  //   alert("Creating a new medical history entry.");
+  // };
 
   return (
-    <div className="medical-history-page">
+    <>
+    {showMedicalHistory ? (
+      <MedicalHistoryRegister
+      patient={patient}
+      onClose={() => setShowMedicalHistory(false)}
+      />
+    ) : 
+    (
+      <div className="medical-history-page">
       <div className="page-header">
         <h2>Medical History Page</h2>
         <button className="close-btn" onClick={onClose}>
@@ -35,7 +45,7 @@ const MedicalHistory = ({ patient, onClose }) => {
         </div>
       </div>
       <div className="medical-history-section">
-        <button className="btn-create" onClick={handleCreateNew}>
+        <button className="btn-create" onClick={() => setShowMedicalHistory(true)}>
           Create New Medical History
         </button>
         <table className="history-table">
@@ -69,6 +79,9 @@ const MedicalHistory = ({ patient, onClose }) => {
         </table>
       </div>
     </div>
+    )
+    }
+  </>
   );
 };
 

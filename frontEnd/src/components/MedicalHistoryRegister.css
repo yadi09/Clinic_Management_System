@@ -1,0 +1,125 @@
+.medical-history-register {
+    width: 80%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  .register-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .register-header h2 {
+    margin: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .patient-info-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .patient-info p {
+    margin: 5px 0;
+  }
+  
+  .form-section {
+    margin-top: 20px;
+  }
+  
+  .form-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1px;
+  }
+  
+  .buttons .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .buttons .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-buttons .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .medical-history-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .selected-diseases {
+    margin-top: 10px;
+  }
+  
+  .selected-disease {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 3px;
+  }
+  
+  .selected-disease button {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-submit {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
