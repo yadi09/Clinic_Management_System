@@ -30,6 +30,7 @@ const AssignPatient = ({ patientId }) => {
         }
     
         try {
+          console.log('Assigning patient to doctor:', patientId, doctorId);
           const response = await axios.post('http://localhost:3000/api/assign-patient', {
             patientId,
             doctorId,
@@ -56,7 +57,7 @@ const AssignPatient = ({ patientId }) => {
             ))}
           </select>
         </div>
-        <button type="submit" className="assign-btn" onClick={assignPatient}>Assign</button>
+        <button type="button" className="assign-btn" onClick={assignPatient}>Assign</button>
       </form>
       <br />
     </>

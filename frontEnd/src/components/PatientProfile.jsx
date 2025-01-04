@@ -32,7 +32,7 @@ const PatientProfile = ({ onClose, patient }) => { // patientId may be patient.i
 
       <PatientProfileUpdateForm patient={patient} />
 
-      <AssignPatient patientId={patient._Id} />
+      <AssignPatient patientId={patient._id} />
     </div>
   );
 };

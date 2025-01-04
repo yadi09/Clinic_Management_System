@@ -65,6 +65,12 @@ body, html {
   transition: 0.3s;
 }
 
+#doctor-dashboard-link {
+  background-color: #34495e;
+  padding-left: 10px;
+  transition: 0.3s;
+}
+
 .logout-btn {
   background-color: #e74c3c;
   border: none;

@@ -39,15 +39,16 @@ const PatientRegistration = ({ closeRegistration }) => {
     } catch (error) {
       console.error("Error registering patient:", error);
       alert("An error occurred while registering patient. Please try again later.");
-      closeRegistration();
       return;
     }
 
     console.log("Form submitted:", formData);
     if (response.status !== 201) {
       alert("An error occurred while registering patient. Please try again later.");
-      closeRegistration();
       return;
+    } else {
+      alert("Patient registered successfully");
+      closeRegistration();
     }
   };
 

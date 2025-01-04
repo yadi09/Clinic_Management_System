@@ -8,6 +8,7 @@ import patientRouter from './routes/patient.js';
 import doctorRouter from './routes/doctor.js';
 import assignPatientRouter from './routes/asignPatient.js';
 import patientsRouter from './routes/patients.js';
+import assignedPatientRouter from './routes/asignedPatient.js';
 // import config from 'config';
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/api/addPatient', patientRouter);
 app.use('/api/getDoctors', doctorRouter);
 app.use('/api/assign-patient', assignPatientRouter);
 app.use('/api/patients', patientsRouter);
+app.use('/api/getAssignedPatients', assignedPatientRouter);
 
 
 // Port
