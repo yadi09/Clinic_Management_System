@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DpatientProfile.css'; // Import a CSS file for styling
 import MedicalHistory from './MedicalHistory';
 
-const PatientProfile = ({ patient, onClose }) => {
+const PatientProfile = ({ assignedPatient, onClose }) => {
   const [showMedicalHistory, setShowMedicalHistory] = useState(false);
 
   // Mock data for in-progress medical history
@@ -11,6 +11,8 @@ const PatientProfile = ({ patient, onClose }) => {
     { id: 2, doctor: "Dr. Adams", date: "2024-01-10", status: "In Progress" },
     { id: 3, doctor: "Dr. Johnson", date: "2024-01-15", status: "In Progress" },
   ];
+
+  console.log("00000 Assigned patient:", assignedPatient);
 
   const handleOpenMedicalHistory = () => {
     setShowMedicalHistory(true);
@@ -41,7 +43,7 @@ const PatientProfile = ({ patient, onClose }) => {
     <>
     {showMedicalHistory ? (
       <MedicalHistory
-        patient={patient}
+        assignedPatient={assignedPatient}
         onClose={handleCloseMedicalHistory}
       />
     ) : (
@@ -55,26 +57,26 @@ const PatientProfile = ({ patient, onClose }) => {
       {/* Patient Information Section */}
       <div className="patient-info">
         <div className="info-group">
-          <div><strong>Date of Registration:</strong> {patient.createdAt}</div>
-          <div><strong>Name:</strong> {patient.name}</div>
+          <div><strong>Date of Registration:</strong> {assignedPatient.patient.createdAt}</div>
+          <div><strong>Name:</strong> {assignedPatient.patient.name}</div>
         </div>
         <div className="info-group">
-          <div><strong>Card Number:</strong> {patient.cardNumber}</div>
-          <div><strong>Student ID:</strong> {patient.studentId}</div>
+          <div><strong>Card Number:</strong> {assignedPatient.patient.cardNumber}</div>
+          <div><strong>Student ID:</strong> {assignedPatient.patient.studentId}</div>
         </div>
         <div className="info-group">
-          <div><strong>Gender:</strong> {patient.gender}</div>
-          <div><strong>Date of Birth:</strong> {patient.age}</div>
-          <div><strong>Age:</strong> {calculateAge(patient.dob)}</div>
+          <div><strong>Gender:</strong> {assignedPatient.patient.gender}</div>
+          <div><strong>Date of Birth:</strong> {assignedPatient.patient.age}</div>
+          <div><strong>Age:</strong> {calculateAge(assignedPatient.patient.dob)}</div>
         </div>
         <div className="info-group">
-          <div><strong>Region:</strong> {patient.region}</div>
-          <div><strong>Wereda/Sub City:</strong> {patient.wereda}</div>
+          <div><strong>Region:</strong> {assignedPatient.patient.region}</div>
+          <div><strong>Wereda/Sub City:</strong> {assignedPatient.patient.wereda}</div>
         </div>
         <div className="info-group">
-          <div><strong>Kebele:</strong> {patient.kebele}</div>
-          <div><strong>House Number:</strong> {patient.houseNumber}</div>
-          <div><strong>Phone Number:</strong> {patient.phoneNumber}</div>
+          <div><strong>Kebele:</strong> {assignedPatient.patient.kebele}</div>
+          <div><strong>House Number:</strong> {assignedPatient.patient.houseNumber}</div>
+          <div><strong>Phone Number:</strong> {assignedPatient.patient.phoneNumber}</div>
         </div>
         <button 
         className="btn-medical-history"

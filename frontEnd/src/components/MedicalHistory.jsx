@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./MedicalHistory.css";
 import MedicalHistoryRegister from "./MedicalHistoryRegister";
 
-const MedicalHistory = ({ patient, onClose }) => {
+const MedicalHistory = ({ assignedPatient, onClose }) => {
   const [showMedicalHistory, setShowMedicalHistory] = useState(false);
   const medicalHistories = [
     { id: 1, date: "2024-01-05", diagnosis: "Flu", doctor: "Dr. Smith" },
@@ -16,12 +16,14 @@ const MedicalHistory = ({ patient, onClose }) => {
   // const handleCreateNew = () => {
   //   alert("Creating a new medical history entry.");
   // };
+  console.log("assignedPatient:", assignedPatient);
+  console.log("Doctor:", assignedPatient.doctor);
 
   return (
     <>
     {showMedicalHistory ? (
       <MedicalHistoryRegister
-      patient={patient}
+      assignedPatient={assignedPatient}
       onClose={() => setShowMedicalHistory(false)}
       />
     ) : 
@@ -35,13 +37,13 @@ const MedicalHistory = ({ patient, onClose }) => {
       </div>
       <div className="patient-info">
         <div>
-          <strong>Name:</strong> {patient.name || "N/A"}
+          <strong>Name:</strong> {assignedPatient.patient.name || "N/A"}
         </div>
         <div>
-          <strong>Card Number:</strong> {patient.cardNumber || "N/A"}
+          <strong>Card Number:</strong> {assignedPatient.patient.cardNumber || "N/A"}
         </div>
         <div>
-          <strong>Student ID:</strong> {patient.studentId || "N/A"}
+          <strong>Student ID:</strong> {assignedPatient.patient.studentId || "N/A"}
         </div>
       </div>
       <div className="medical-history-section">

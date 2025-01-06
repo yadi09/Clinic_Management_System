@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./GeneratePrescription.css";
+import axios from "axios";
 
-const GeneratePrescription = ({ patient, onClose }) => {
+const GeneratePrescription = ({ assignedPatient, medicalHistory, onClose }) => {
   const [formData, setFormData] = useState({
-    forWho: "student",
-    rx: "",
+    medicalHistoryId: medicalHistory._id,
+    forWho: "",
+    RX: "",
   });
 
+  console.log("prescription Medical History:", medicalHistory);
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,11 +17,18 @@ const GeneratePrescription = ({ patient, onClose }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    // Add logic to send form data to the backend
+    console.log("prescription Form Data Submitted:", formData);
+    const response = await axios.post("http://localhost:3000/api/addPrescription", formData);
+    console.log("prescription Response:", response);
+    if (response.status !== 201) {
+      alert("An error occurred while generating prescription. Please try again later.");
+      return;
+    } else {
     alert("Prescription generated successfully!");
+    onClose();
+    }
   };
 
   return (
@@ -33,11 +43,11 @@ const GeneratePrescription = ({ patient, onClose }) => {
 
       {/* Patient Info */}
       <div className="patient-info">
-        <div><strong>Name:</strong> {patient.name}</div>
-        <div><strong>Student ID:</strong> {patient.studentId}</div>
-        <div><strong>Card Number:</strong> {patient.cardNumber}</div>
-        <div><strong>Age:</strong> {patient.age}</div>
-        <div><strong>Gender:</strong> {patient.gender}</div>
+        <div><strong>Name:</strong> {assignedPatient.patient.name}</div>
+        <div><strong>Student ID:</strong> {assignedPatient.patient.studentId}</div>
+        <div><strong>Card Number:</strong> {assignedPatient.patient.cardNumber}</div>
+        <div><strong>Age:</strong> {assignedPatient.patient.age}</div>
+        <div><strong>Gender:</strong> {assignedPatient.patient.gender}</div>
       </div>
 
       {/* Form Section */}
@@ -45,6 +55,7 @@ const GeneratePrescription = ({ patient, onClose }) => {
         <label>
           For Who:
           <select name="forWho" value={formData.forWho} onChange={handleChange}>
+            <option value="">Select</option>
             <option value="student">Student</option>
             <option value="staff">Staff</option>
             <option value="other">Other</option>
@@ -53,8 +64,8 @@ const GeneratePrescription = ({ patient, onClose }) => {
         <label>
           RX:
           <textarea
-            name="rx"
-            value={formData.rx}
+            name="RX"
+            value={formData.RX}
             onChange={handleChange}
             placeholder="Enter prescription details"
             rows="5"

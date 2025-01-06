@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import './MedicalHistoryRegister.css'; // Include appropriate styles
 import GeneratePrescription from './GeneratePrescription';
 import GenerateReferral from './GenerateReferral';
+import axios from 'axios';
 
-const MedicalHistoryRegister = ({ patient, onClose }) => {
+const MedicalHistoryRegister = ({ assignedPatient, onClose }) => {
   const [selectedDiseases, setSelectedDiseases] = useState([]);
   const [availableDiseases] = useState(["Flu", "Diabetes", "Hypertension", "Asthma", "COVID-19"]);
   const [showPrescription, setShowPrescription] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
+  const [medicalHistory, setMedicalHistory] = useState(null);
 
+  console.log("111111111 assignedPatient:", assignedPatient);
+  console.log("222222222 Doctor:", assignedPatient.doctor);
   const [formData, setFormData] = useState({
+    patientId : assignedPatient.patient._id,
+    doctorId: assignedPatient.doctor._id,
     presentHistory: "",
     pastPresentHistory: "",
     vitalSign: "",
@@ -35,9 +41,26 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     // Implement form submission logic here
+    try {
+      console.log("Form data to be submitted:", { ...formData, diagnostics: selectedDiseases });
+      const response = await axios.post("http://localhost:3000/api/addMedicalHistory", formData);
+      console.log("Response:", response);
+      if (response.status !== 201) {
+        alert("An error occurred while submitting the form. Please try again later.");
+        return;
+      }
+      alert("Medical history registered successfully");
+      setMedicalHistory(response.data.data);
+      console.log("Medical history:", response.data.data);
+      // onClose();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred while submitting the form. Please try again later.");
+      return;
+    }
     console.log("Form data submitted:", { ...formData, diagnostics: selectedDiseases });
   };
 
@@ -45,12 +68,14 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
     <>
     {showPrescription ? (
       <GeneratePrescription
-          patient={patient}
+          assignedPatient={assignedPatient}
+          medicalHistory={medicalHistory}
           onClose={() => setShowPrescription(false)}
         />
     ) : showReferral ? (
       <GenerateReferral
-          patient={patient}
+          assignedPatient={assignedPatient}
+          medicalHistory={medicalHistory}
           onClose={() => setShowReferral(false)}
         />
     ) : (
@@ -63,9 +88,9 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
 
       {/* Patient Info Section */}
         <div className="patient-info">
-          <p><strong>Name:</strong> {patient.name}</p>
-          <p><strong>Card Number:</strong> {patient.cardNumber}</p>
-          <p><strong>Student ID:</strong> {patient.studentId}</p>
+          <p><strong>Name:</strong> {assignedPatient.patient.name}</p>
+          <p><strong>Card Number:</strong> {assignedPatient.patient.cardNumber}</p>
+          <p><strong>Student ID:</strong> {assignedPatient.patient.studentId}</p>
         </div>
 
 
@@ -166,8 +191,10 @@ const MedicalHistoryRegister = ({ patient, onClose }) => {
             onChange={handleInputChange}
           >
             <option value="">Select status...</option>
-            <option value="Appointment">Appointment</option>
-            <option value="Completed">Completed</option>
+            <option value="Active">Active</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Referred">Referred</option>
+            <option value="Pending">Pending</option>
           </select>
         </div>
         <button type="submit" className="btn btn-submit">Submit</button>

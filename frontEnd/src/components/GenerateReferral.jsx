@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./GenerateReferral.css";
 
-const GenerateReferral = ({ onClose }) => {
+const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
   const [formData, setFormData] = useState({
     cardNo: "",
     referralNo: "",

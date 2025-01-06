@@ -9,6 +9,9 @@ import doctorRouter from './routes/doctor.js';
 import assignPatientRouter from './routes/asignPatient.js';
 import patientsRouter from './routes/patients.js';
 import assignedPatientRouter from './routes/asignedPatient.js';
+import addMedicalHistoryRouter from './routes/addMedicalHistory.js';
+import addDiseaseRouter from './routes/addDisease.js';
+import addPrescriptionRouter from './routes/addPrescription.js';
 // import config from 'config';
 
 dotenv.config();
@@ -30,7 +33,9 @@ app.use('/api/getDoctors', doctorRouter);
 app.use('/api/assign-patient', assignPatientRouter);
 app.use('/api/patients', patientsRouter);
 app.use('/api/getAssignedPatients', assignedPatientRouter);
-
+app.use('/api/addMedicalHistory', addMedicalHistoryRouter);
+app.use('/api/addDisease', addDiseaseRouter);
+app.use('/api/addPrescription', addPrescriptionRouter);
 
 // Port
 const port = process.env.PORT || 3000;

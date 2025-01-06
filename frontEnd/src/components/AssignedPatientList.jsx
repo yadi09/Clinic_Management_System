@@ -3,7 +3,7 @@ import PatientProfile from './DpatientProfile';
 
 const AssignedPatientList = ({ onViewPatient }) => {
   const [patients, setPatients] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [assignedPatient, setSelectedPatient] = useState(null);
 
 
   // Simulate fetching data from the database
@@ -13,7 +13,7 @@ const AssignedPatientList = ({ onViewPatient }) => {
       fetch("http://localhost:3000/api/getAssignedPatients")
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log("assigned patient:", data);
           setPatients(data);
         })
         .catch((err) => {
@@ -23,6 +23,7 @@ const AssignedPatientList = ({ onViewPatient }) => {
 
     fetchPatients();
   }, []);
+  console.log("To see if this data has doctor name:", patients);
 
   return (
     <section id="assigned-patients-section" className="content">
@@ -41,6 +42,7 @@ const AssignedPatientList = ({ onViewPatient }) => {
           <tbody>
             {patients.length > 0 ? (
               patients.map((patient, index) => (
+                console.log("--00 selected patient:", patients),
                 <tr key={index}>
                   <td>{patient.patient.cardNumber}</td>
                   <td>{patient.patient.name}</td>
@@ -49,7 +51,12 @@ const AssignedPatientList = ({ onViewPatient }) => {
                   <td>
                     <button
                       className="btn btn-view"
-                      onClick={() => setSelectedPatient(patient.patient)}
+                      onClick={() => {
+                        console.log("00 selected patient:", patient);
+                        console.log("22 selected patient:", index);
+                        setSelectedPatient(patient);
+                        console.log("11 selected patient:", assignedPatient);
+                      } }
                     >
                       View
                     </button>
@@ -62,9 +69,10 @@ const AssignedPatientList = ({ onViewPatient }) => {
               </tr>
             )}
 
-            {selectedPatient && (
+            {assignedPatient && (
+              console.log("33 selected patient:", assignedPatient),
               <PatientProfile
-                patient={selectedPatient}
+                assignedPatient={assignedPatient}
                 onClose={() => setSelectedPatient(null)}
               />
             )}
