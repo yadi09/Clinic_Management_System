@@ -21,34 +21,43 @@ const referralSchema = new mongoose.Schema(
     },
     department: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
+      default: 'Not specified',
     },
     healthProblem: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
+      default: 'Not specified',
     },
     vitals: {
       bloodPressure: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
+        default: '-/-',
         // Example: "120/80"
       },
       pulseRate: {
-        type: Number,
-        required: true,
+        type: String,
+        required: false,
+        trim: true,
+        default: '-',
         // Example: 72
       },
       temperature: {
-        type: Number,
-        required: true,
+        type: String,
+        required: false,
+        trim: true,
+        default: '-',
         // Example: 36.5 (in °C)
       },
       respiratoryRate: {
-        type: Number,
-        required: true,
+        type: String,
+        required: false,
+        trim: true,
+        default: 'Not specified',
         // Example: 16
       },
     },
@@ -56,21 +65,25 @@ const referralSchema = new mongoose.Schema(
       type: String,
       required: false,
       trim: true,
+      default: 'Not specified',
     },
     investigationResult: {
       type: String,
       required: false,
       trim: true,
+      default: 'Not specified',
     },
     actionTaken: {
       type: String,
       required: false,
       trim: true,
+      default: 'Not specified',
     },
     reasonForReferral: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
+      default: 'Not specified',
     },
   },
   {

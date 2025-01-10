@@ -1,40 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./GenerateReferral.css";
+import axios from "axios";
 
 const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
+  const [currentMedicalHistory, setCurrentMedicalHistory] = useState(medicalHistory);
   const [formData, setFormData] = useState({
-    cardNo: "",
+    medicalHistoryId: medicalHistory ? currentMedicalHistory._id : "",
     referralNo: "",
-    referralDate: "",
     referredTo: "",
     department: "",
-    patientName: "",
-    age: "",
-    gender: "",
-    studentId: "",
     healthProblem: "",
-    bp: "",
-    pr: "",
-    to: "",
-    rr: "",
+    vitals: {
+      bloodPressure: "",
+      pulseRate: "",
+      temperature: "",
+      respiratoryRate: "",
+    },
     tentativeDiagnosis: "",
     investigationResult: "",
     actionTaken: "",
-    referralReason: "",
+    reasonForReferral: "",
   });
+
+  const NewMedicalHistory = async () => {
+    if (!currentMedicalHistory) {
+      console.log("assignedPatient.patient._id:", assignedPatient.patient._id);
+      console.log("assignedPatient.doctor._id:", assignedPatient.doctor._id);
+      try {
+        const response = await axios.post("http://localhost:3000/api/addMedicalHistory", {
+        "patientId" : assignedPatient.patient._id,
+        "doctorId": assignedPatient.doctor._id,
+        "presentHistory": "",
+        "pastPresentHistory": "",
+        "vitalSign": "",
+        "physicalExamination": "",
+        "diagnostics": [],
+        "plan": "",
+        "treatment": "",
+        "status": "Active"
+        });
+        console.log("Response:", response);
+        const newMedicalHistory = response?.data?.data;
+        if (!newMedicalHistory) throw new Error("Invalid API response");
+        console.log("New Medical History:", newMedicalHistory);
+        console.log("New MedicalHistory _ID:", newMedicalHistory._id);
+        setCurrentMedicalHistory(newMedicalHistory);
+        console.log("Current Medical History:", currentMedicalHistory);
+      } catch (error) {
+        console.error("Error creating medical history:", error);
+        alert("An error occurred while creating medical history. Please try again later.");
+        return;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (currentMedicalHistory) {
+      setFormData((prev) => ({
+        ...prev,
+        medicalHistoryId: currentMedicalHistory._id,
+      }));
+      console.log("FormData Updated with Medical History ID:", currentMedicalHistory._id);
+    }
+  }, [currentMedicalHistory]);
+
 
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "bloodPressure" || name === "pulseRate" || name === "temperature" || name === "respiratoryRate") {
+      const vitals = { ...formData.vitals, [name]: value };
+      setFormData({ ...formData, vitals });
+      return;
+    }
     setFormData({ ...formData, [name]: value });
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
-    // Add logic to send form data to the backend
-    alert("Referral generated successfully!");
+    
+    if (!currentMedicalHistory) {
+      await NewMedicalHistory();
+    }
+    console.log("Medical History:", currentMedicalHistory);
+
+    console.log("Form Data Submitted:", formData);
+    try {
+      if (currentMedicalHistory) {
+      const response = await axios.post("http://localhost:3000/api/addReferral", formData);
+      console.log("Response:", response);
+      const newReferral = response?.data?.data;
+      if (!newReferral) throw new Error("Invalid API response");
+      console.log("New Referral:", newReferral);
+      console.log("New Referral _ID:", newReferral._id);
+      alert("Referral generated successfully!");
+      } else {
+        console.log("Medical History is creating...");
+      }
+    } catch (error) {
+      console.error("Error creating referral:", error);
+      return;
+    }
   };
 
   return (
@@ -56,7 +124,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             <input
               type="text"
               name="cardNo"
-              value={formData.cardNo}
+              value={assignedPatient.patient.cardNumber}
               onChange={handleChange}
             />
           </label>
@@ -67,6 +135,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
               name="referralNo"
               value={formData.referralNo}
               onChange={handleChange}
+              required
             />
           </label>
           <label>
@@ -74,7 +143,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             <input
               type="date"
               name="referralDate"
-              value={formData.referralDate}
+              value={formData.referralDate || new Date().toISOString().split("T")[0]}
               onChange={handleChange}
             />
           </label>
@@ -89,6 +158,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
               name="referredTo"
               value={formData.referredTo}
               onChange={handleChange}
+              required
             />
           </label>
           <label>
@@ -109,7 +179,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             <input
               type="text"
               name="patientName"
-              value={formData.patientName}
+              value={assignedPatient.patient.name}
               onChange={handleChange}
             />
           </label>
@@ -118,7 +188,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             <input
               type="text"
               name="age"
-              value={formData.age}
+              value={assignedPatient.patient.age}
               onChange={handleChange}
             />
           </label>
@@ -126,7 +196,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             Gender:
             <select
               name="gender"
-              value={formData.gender}
+              value={assignedPatient.patient.gender}
               onChange={handleChange}
             >
               <option value="">Select</option>
@@ -143,7 +213,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
           <input
             type="text"
             name="studentId"
-            value={formData.studentId}
+            value={assignedPatient.patient.studentId}
             onChange={handleChange}
           />
         </label>
@@ -163,8 +233,8 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             B/P:
             <input
               type="text"
-              name="bp"
-              value={formData.bp}
+              name="bloodPressure"
+              value={formData.vitals.bloodPressure}
               onChange={handleChange}
             />
           </label>
@@ -172,8 +242,8 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             P/R:
             <input
               type="text"
-              name="pr"
-              value={formData.pr}
+              name="pulseRate"
+              value={formData.vitals.pulseRate}
               onChange={handleChange}
             />
           </label>
@@ -181,8 +251,8 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             T/O:
             <input
               type="text"
-              name="to"
-              value={formData.to}
+              name="temperature"
+              value={formData.vitals.temperature}
               onChange={handleChange}
             />
           </label>
@@ -190,8 +260,8 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             R/R:
             <input
               type="text"
-              name="rr"
-              value={formData.rr}
+              name="respiratoryRate"
+              value={formData.vitals.respiratoryRate}
               onChange={handleChange}
             />
           </label>
@@ -228,7 +298,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
         <label>
           Reason for Referral:
           <textarea
-            name="referralReason"
+            name="reasonForReferral"
             value={formData.referralReason}
             onChange={handleChange}
           />

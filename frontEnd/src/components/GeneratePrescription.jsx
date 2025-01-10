@@ -62,14 +62,13 @@ useEffect(() => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.forWho || !formData.RX) {
-      alert("Please fill in all fields before submitting.");
-      return;
-    }
+    // if (!formData.forWho || !formData.RX) {
+    //   alert("Please fill in all fields before submitting.");
+    //   return;
+    // }
 
-    await NewMedicalHistory();
     if (!currentMedicalHistory) {
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 1 seconds
+      await NewMedicalHistory();
     }
     console.log("prescription Medical History:", currentMedicalHistory);
 
@@ -110,7 +109,7 @@ useEffect(() => {
       <form className="prescription-form" onSubmit={handleSubmit}>
         <label>
           For Who:
-          <select name="forWho" value={formData.forWho} onChange={handleChange}>
+          <select name="forWho" value={formData.forWho} onChange={handleChange} required>
             <option value="">Select</option>
             <option value="student">Student</option>
             <option value="staff">Staff</option>
@@ -125,6 +124,7 @@ useEffect(() => {
             onChange={handleChange}
             placeholder="Enter prescription details"
             rows="5"
+            required
           />
         </label>
         <button type="submit" className="btn-submit">

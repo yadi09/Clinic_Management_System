@@ -189,6 +189,7 @@ const MedicalHistoryRegister = ({ assignedPatient, onClose }) => {
             name="status"
             value={formData.status}
             onChange={handleInputChange}
+            required
           >
             <option value="">Select status...</option>
             <option value="Active">Active</option>
