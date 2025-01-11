@@ -1,0 +1,85 @@
+/* Base Styles */
+.referral-form {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 40px;
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */
+    border: 0px solid #000;
+    border-radius: 5px;
+    background: #fff;
+    box-sizing: border-box;
+    line-height: 1.6; /* Default line height for better spacing */
+}
+
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.clinic-logo {
+    width: 80px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.header h1 {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.header h2 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+/* Card Details Styles */
+.card-details {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.card-details p {
+    margin: 10px 0; /* Add space between details */
+}
+
+/* Form Content Styles */
+.form-content {
+    margin-bottom: 30px;
+}
+
+.form-content p:first-child {
+    display: flex;
+    justify-content:space-evenly;
+}
+
+.form-content p {
+    margin: 25px 0; /* Increased spacing between rows */
+    font-size: 16px;
+}
+
+/* Handle rows with multiple data points */
+.form-content p.inline-data {
+    margin: 15px 0; /* Less spacing for inline rows */
+    display: flex;
+    justify-content: space-between; /* Evenly distribute inline data */
+    align-items: center; /* Align text properly */
+}
+
+.form-content p.inline-data span {
+    display: inline-block;
+    margin-right: 10px; /* Small margin between inline labels */
+    font-weight: bold;
+}
+
+/* Footer Styles */
+.footer {
+    text-align: center;
+    margin-top: auto; /* Push footer to bottom area */
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 40px; /* Add spacing above footer */
+}

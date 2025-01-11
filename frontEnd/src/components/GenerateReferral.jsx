@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./GenerateReferral.css";
 import axios from "axios";
+import { useReactToPrint } from "react-to-print";
+import ReferralPrint from "./ReferralPrint";
 
 const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
   const [currentMedicalHistory, setCurrentMedicalHistory] = useState(medicalHistory);
+  // const [newReferral, setNewReferral] = useState(null);
+  let newReferral = null;
+  const componentRef = useRef(null);
   const [formData, setFormData] = useState({
     medicalHistoryId: medicalHistory ? currentMedicalHistory._id : "",
     referralNo: "",
@@ -91,24 +96,35 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
       if (currentMedicalHistory) {
       const response = await axios.post("http://localhost:3000/api/addReferral", formData);
       console.log("Response:", response);
-      const newReferral = response?.data?.data;
+      newReferral = response?.data?.data;
       if (!newReferral) throw new Error("Invalid API response");
+      // setNewReferral(newReferral);
       console.log("New Referral:", newReferral);
       console.log("New Referral _ID:", newReferral._id);
       alert("Referral generated successfully!");
+      handlePrint();
       } else {
         console.log("Medical History is creating...");
       }
+      console.log("Printing Referral...:", newReferral);
+
     } catch (error) {
       console.error("Error creating referral:", error);
       return;
     }
   };
 
+  const handlePrint = useReactToPrint({ 
+    contentRef: componentRef,
+    onBeforeGetContent: () => setIsPrint(true),
+    onAfterPrint: () => setIsPrint(false),
+    });
+
   return (
+    <>
     <div className="generate-referral">
       {/* Header */}
-      <div className="header">
+      <div className="header-referral">
         <h2>Generate Referral</h2>
         <button className="close-btn" onClick={onClose}>
           X
@@ -116,7 +132,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
       </div>
 
       {/* Form Section */}
-      <form className="referral-form" onSubmit={handleSubmit}>
+      <form className="referral_form" onSubmit={handleSubmit}>
         {/* Row 1 */}
         <div className="row">
           <label>
@@ -308,9 +324,13 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
           Submit
         </button>
       </form>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
+    <div style={{ display: "none" }}>
+    <ReferralPrint ref={componentRef} patient={assignedPatient.patient} referral={formData} />
+    </div>
+    </>
   );
 };
 
