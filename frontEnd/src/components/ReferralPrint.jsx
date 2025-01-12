@@ -8,15 +8,15 @@ const ReferralForm = forwardRef(({ patient, referral }, ref) => {
     console.log("101010 referral", referral);
 
     return (
-        <div ref={ref} className="referral-form">
+        <div ref={ref} className="referralForm">
             {/* Logo and Header */}
-            <div className="header">
+            <div className="headerReferral">
                 <img
                     src={logo} // Replace with your logo path
                     alt="Clinic Logo"
                     className="clinic-logo"
                 />
-                <h1>KOTEBE UNIVERSITY</h1>
+                <h1>KOTEBE UNIVERSITY OF EDUCATION</h1>
                 <h2>MEDIUM CLINIC REFERRAL FORM</h2>
             </div>
 

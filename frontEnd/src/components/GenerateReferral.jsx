@@ -224,6 +224,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
         </div>
 
         {/* Row 4 */}
+        <div className="label">
         <label>
           Student ID:
           <input
@@ -233,7 +234,9 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             onChange={handleChange}
           />
         </label>
+        </div>
 
+        <div className="label">
         <label>
           Health Problem:
           <textarea
@@ -242,6 +245,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             onChange={handleChange}
           />
         </label>
+        </div>
 
         {/* Row 5 */}
         <div className="row">
@@ -284,6 +288,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
         </div>
 
         {/* Other Inputs */}
+        <div className="label">
         <label>
           Tentative Diagnosis:
           <textarea
@@ -292,7 +297,9 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             onChange={handleChange}
           />
         </label>
+        </div>
 
+        <div className="label">
         <label>
           Investigation Result:
           <textarea
@@ -301,7 +308,9 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             onChange={handleChange}
           />
         </label>
+        </div>
 
+        <div className="label">
         <label>
           Action Taken (Treatment Given):
           <textarea
@@ -310,7 +319,9 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             onChange={handleChange}
           />
         </label>
+        </div>
 
+        <div className="label">
         <label>
           Reason for Referral:
           <textarea
@@ -319,6 +330,9 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
             onChange={handleChange}
           />
         </label>
+        </div>
+
+        {/* Submit Button */}
 
         <button type="submit" className="btn-submit">
           Submit

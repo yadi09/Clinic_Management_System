@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./GeneratePrescription.css";
+import { useReactToPrint } from "react-to-print";
+import PrescriptionForm from "./PrescriptionForm";
 import axios from "axios";
 
 const GeneratePrescription = ({ assignedPatient, medicalHistory, onClose }) => {
   const [currentMedicalHistory, setCurrentMedicalHistory] = useState(medicalHistory);
+  const componentRef = useRef(null);
   const [formData, setFormData] = useState({
   medicalHistoryId: medicalHistory ? currentMedicalHistory._id : "",
   forWho: "",
   RX: "",
 });
 
+const handlePrint = useReactToPrint({
+  contentRef: componentRef,
+});
 
+// Create new medical history if not already created
 const NewMedicalHistory = async () => {
   if (!currentMedicalHistory) {
     console.log("assignedPatient.patient._id:", assignedPatient.patient._id);
@@ -78,7 +85,7 @@ useEffect(() => {
         const response = await axios.post("http://localhost:3000/api/addPrescription", formData);
         if (response.status !== 201) throw new Error("Failed to generate prescription.");
         alert("Prescription generated successfully!");
-        onClose();
+        handlePrint();
       }
     } catch (error) {
       console.error("Error generating prescription:", error);
@@ -87,6 +94,7 @@ useEffect(() => {
   };
 
   return (
+    <>
     <div className="generate-prescription">
       {/* Header */}
       <div className="header">
@@ -132,6 +140,12 @@ useEffect(() => {
         </button>
       </form>
     </div>
+
+    {/* Prescription Form */}
+    <div style={{ display: "none" }}>
+      <PrescriptionForm ref={componentRef} patient={assignedPatient.patient} prescription={formData} />
+      </div>
+    </>
   );
 };
 
