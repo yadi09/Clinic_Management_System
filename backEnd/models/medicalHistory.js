@@ -53,8 +53,7 @@ const medicalHistorySchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ['Active', 'Resolved', 'Referred', 'Pending'], // Add statuses as required
-      default: 'Pending',
+      enum: ['Cancelled', 'Referred', 'Appointed', 'Completed'],
     },
   },
   {

@@ -87,7 +87,9 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
     console.log("Form Data Submitted:", formData);
     
     if (!currentMedicalHistory) {
-      await NewMedicalHistory();
+      // await NewMedicalHistory();
+      alert("Medical History is not created yet. Please create Medical History first.");
+      onClose();
     }
     console.log("Medical History:", currentMedicalHistory);
 
@@ -103,6 +105,7 @@ const GenerateReferral = ({ assignedPatient, medicalHistory, onClose }) => {
       console.log("New Referral _ID:", newReferral._id);
       alert("Referral generated successfully!");
       handlePrint();
+      onClose();
       } else {
         console.log("Medical History is creating...");
       }

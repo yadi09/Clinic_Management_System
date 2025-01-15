@@ -44,6 +44,10 @@ const MedicalHistoryRegister = ({ assignedPatient, onClose }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     // Implement form submission logic here
+    if (medicalHistory) {
+      alert("Medical history already registered for this patient");
+      return;
+    }
     try {
       console.log("Form data to be submitted:", { ...formData, diagnostics: selectedDiseases });
       const response = await axios.post("http://localhost:3000/api/addMedicalHistory", formData);
@@ -192,10 +196,10 @@ const MedicalHistoryRegister = ({ assignedPatient, onClose }) => {
             required
           >
             <option value="">Select status...</option>
-            <option value="Active">Active</option>
-            <option value="Resolved">Resolved</option>
+            <option value="Appointed">Appointed</option>
             <option value="Referred">Referred</option>
-            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
           </select>
         </div>
         <button type="submit" className="btn btn-submit">Submit</button>

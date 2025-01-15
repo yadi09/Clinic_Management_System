@@ -1,16 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DpatientProfile.css'; // Import a CSS file for styling
 import MedicalHistory from './MedicalHistory';
+import axios from 'axios';
 
 const PatientProfile = ({ assignedPatient, onClose }) => {
   const [showMedicalHistory, setShowMedicalHistory] = useState(false);
+  const [medicalHistory, setMedicalHistory] = useState([]);
 
+
+  useEffect(() => {
+    const fetchMedicalHistory = async () => {
+      // Mocked data (replace this with an API/database call)
+      console.log("Assigned 0000 Patient:", assignedPatient.patient._id);
+      axios.get("http://localhost:3000/api/getMedicalHistory", {
+        params: {
+          id: assignedPatient.patient._id,
+        },
+      }
+      )
+        .then((res) => {
+          setMedicalHistory(res.data.data);
+          console.log("Medical History:", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    fetchMedicalHistory();
+  }, []);
+  console.log("medicalHistory 000 11", medicalHistory);
   // Mock data for in-progress medical history
-  const medicalHistory = [
-    { id: 1, doctor: "Dr. Smith", date: "2024-01-05", status: "In Progress" },
-    { id: 2, doctor: "Dr. Adams", date: "2024-01-10", status: "In Progress" },
-    { id: 3, doctor: "Dr. Johnson", date: "2024-01-15", status: "In Progress" },
-  ];
+  // const medicalHistory = [
+  //   { id: 1, doctor: "Dr. Smith", date: "2024-01-05", status: "In Progress" },
+  //   { id: 2, doctor: "Dr. Adams", date: "2024-01-10", status: "In Progress" },
+  //   { id: 3, doctor: "Dr. Johnson", date: "2024-01-15", status: "In Progress" },
+  // ];
 
   console.log("00000 Assigned patient:", assignedPatient);
 
@@ -98,22 +123,31 @@ const PatientProfile = ({ assignedPatient, onClose }) => {
             </tr>
           </thead>
           <tbody>
-            {medicalHistory.map((history) => (
-              <tr key={history.id}>
-                <td>{history.id}</td>
-                <td>{history.doctor}</td>
-                <td>{history.date}</td>
+            {console.log("Medical 0000 History:", medicalHistory)}
+            {medicalHistory.length > 0 ? (
+              medicalHistory.map((history) => (
+              <tr key={history._id}>
+                <td>{history.patientId.studentId}</td>
+                <td>{history.doctorId.name}</td>
+                <td>{history.updatedAt}</td>
                 <td>{history.status}</td>
                 <td>
                   <button
-                    className="btn btn-view"
-                    onClick={() => handleViewHistory(history.id)}
+                  className="btn btn-view"
+                  onClick={() => handleViewHistory(history.id)}
                   >
                     View
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    </button>
+                    </td>
+                    </tr>
+                    ))
+                  ) : (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: "center" }}>
+                      No medical history available.
+                      </td>
+                      </tr>
+                    )}
           </tbody>
         </table>
       </div>

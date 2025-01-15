@@ -13,6 +13,7 @@ import addMedicalHistoryRouter from './routes/addMedicalHistory.js';
 import addDiseaseRouter from './routes/addDisease.js';
 import addPrescriptionRouter from './routes/addPrescription.js';
 import addReferralRouter from './routes/addReferral.js';
+import getMedicalHistoryRouter from './routes/getMedicalHistory.js';
 // import config from 'config';
 
 dotenv.config();
@@ -38,6 +39,7 @@ app.use('/api/addMedicalHistory', addMedicalHistoryRouter);
 app.use('/api/addDisease', addDiseaseRouter);
 app.use('/api/addPrescription', addPrescriptionRouter);
 app.use('/api/addReferral', addReferralRouter);
+app.use('/api/getMedicalHistory', getMedicalHistoryRouter);
 
 // Port
 const port = process.env.PORT || 3000;

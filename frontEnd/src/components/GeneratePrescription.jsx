@@ -75,7 +75,9 @@ useEffect(() => {
     // }
 
     if (!currentMedicalHistory) {
-      await NewMedicalHistory();
+      // await NewMedicalHistory();
+      alert("Medical History is not created yet. Please create Medical History first.");
+      onClose();
     }
     console.log("prescription Medical History:", currentMedicalHistory);
 
@@ -86,6 +88,7 @@ useEffect(() => {
         if (response.status !== 201) throw new Error("Failed to generate prescription.");
         alert("Prescription generated successfully!");
         handlePrint();
+        onClose();
       }
     } catch (error) {
       console.error("Error generating prescription:", error);
