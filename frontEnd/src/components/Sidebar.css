@@ -1,29 +1,45 @@
 .sidebar {
-    width: 250px;
-    background: #2c3e50;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
-  .sidebar .logo {
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-  
-  .sidebar ul li:hover {
-    text-decoration: underline;
-  }
-  
+  width: 250px;
+  background: #2c3e50;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.sidebar .logo {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebar .logo {
+  background-color: #ecf0f1;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 10px 30px 45px;
+}
+
+.sidebar .logo img {
+  width: 100%;
+  max-width: 100px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  text-decoration: underline;
+}

@@ -1,11 +1,12 @@
 import React from "react";
 import "./Sidebar.css";
+import Logo from "../assets/images/logo.png";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <img
-        src="https://via.placeholder.com/100" 
+        src={Logo}
         alt="Logo"
         className="logo"
       />

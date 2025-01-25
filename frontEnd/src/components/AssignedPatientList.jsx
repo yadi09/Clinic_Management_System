@@ -56,7 +56,7 @@ const AssignedPatientList = ({ onViewPatient }) => {
                         console.log("22 selected patient:", index);
                         setSelectedPatient(patient);
                         console.log("11 selected patient:", assignedPatient);
-                      } }
+                      }}
                     >
                       View
                     </button>

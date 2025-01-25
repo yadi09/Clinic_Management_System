@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import "./PrescriptionForm.css"; // Separate CSS file for styling
-import logo from "./logo.png"; // Replace with the actual path to the logo
+import logo from "../assets/images/logo.png"; // Replace with the actual path to the logo
 
 const PrescriptionForm = forwardRef(({ patient, prescription }, ref) => {
     const currentDate = new Date().toLocaleDateString(); // Format date as needed

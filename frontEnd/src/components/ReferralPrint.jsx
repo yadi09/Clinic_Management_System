@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import "./ReferralForm.css";
-import logo from "./logo.png";
+import logo from "../assets/images/logo.png";
 
 const ReferralForm = forwardRef(({ patient, referral }, ref) => {
     const currentDate = new Date().toLocaleDateString();

@@ -66,93 +66,93 @@ const PatientProfile = ({ assignedPatient, onClose }) => {
 
   return (
     <>
-    {showMedicalHistory ? (
-      <MedicalHistory
-        assignedPatient={assignedPatient}
-        onClose={handleCloseMedicalHistory}
-      />
-    ) : (
-      <div className="patient-profile">
-      {/* Header Section */}
-      <div className="profile-header">
-        <h2>Patient Profile Page</h2>
-        <button className="close-btn" onClick={onClose}>X</button>
-      </div>
+      {showMedicalHistory ? (
+        <MedicalHistory
+          assignedPatient={assignedPatient}
+          onClose={handleCloseMedicalHistory}
+        />
+      ) : (
+        <div className="patient-profile">
+          {/* Header Section */}
+          <div className="profile-header">
+            <h2>Patient Profile Page</h2>
+            <button className="close-btn" onClick={onClose}>X</button>
+          </div>
 
-      {/* Patient Information Section */}
-      <div className="patient-info">
-        <div className="info-group">
-          <div><strong>Date of Registration:</strong> {assignedPatient.patient.createdAt}</div>
-          <div><strong>Name:</strong> {assignedPatient.patient.name}</div>
-        </div>
-        <div className="info-group">
-          <div><strong>Card Number:</strong> {assignedPatient.patient.cardNumber}</div>
-          <div><strong>Student ID:</strong> {assignedPatient.patient.studentId}</div>
-        </div>
-        <div className="info-group">
-          <div><strong>Gender:</strong> {assignedPatient.patient.gender}</div>
-          <div><strong>Date of Birth:</strong> {assignedPatient.patient.age}</div>
-          <div><strong>Age:</strong> {calculateAge(assignedPatient.patient.dob)}</div>
-        </div>
-        <div className="info-group">
-          <div><strong>Region:</strong> {assignedPatient.patient.region}</div>
-          <div><strong>Wereda/Sub City:</strong> {assignedPatient.patient.wereda}</div>
-        </div>
-        <div className="info-group">
-          <div><strong>Kebele:</strong> {assignedPatient.patient.kebele}</div>
-          <div><strong>House Number:</strong> {assignedPatient.patient.houseNumber}</div>
-          <div><strong>Phone Number:</strong> {assignedPatient.patient.phoneNumber}</div>
-        </div>
-        <button 
-        className="btn-medical-history"
-        onClick={handleOpenMedicalHistory}
-        >Click to See Medical History</button>
-      </div>
+          {/* Patient Information Section */}
+          <div className="patient-info">
+            <div className="info-group">
+              <div><strong>Date of Registration:</strong> {assignedPatient.patient.createdAt}</div>
+              <div><strong>Name:</strong> {assignedPatient.patient.name}</div>
+            </div>
+            <div className="info-group">
+              <div><strong>Card Number:</strong> {assignedPatient.patient.cardNumber}</div>
+              <div><strong>Student ID:</strong> {assignedPatient.patient.studentId}</div>
+            </div>
+            <div className="info-group">
+              <div><strong>Gender:</strong> {assignedPatient.patient.gender}</div>
+              <div><strong>Date of Birth:</strong> {assignedPatient.patient.age}</div>
+              <div><strong>Age:</strong> {calculateAge(assignedPatient.patient.dob)}</div>
+            </div>
+            <div className="info-group">
+              <div><strong>Region:</strong> {assignedPatient.patient.region}</div>
+              <div><strong>Wereda/Sub City:</strong> {assignedPatient.patient.wereda}</div>
+            </div>
+            <div className="info-group">
+              <div><strong>Kebele:</strong> {assignedPatient.patient.kebele}</div>
+              <div><strong>House Number:</strong> {assignedPatient.patient.houseNumber}</div>
+              <div><strong>Phone Number:</strong> {assignedPatient.patient.phoneNumber}</div>
+            </div>
+            <button
+              className="btn-medical-history"
+              onClick={handleOpenMedicalHistory}
+            >Click to See Medical History</button>
+          </div>
 
-      {/* In-progress Medical History Section */}
-      <div className="medical-history">
-        <h3>In Progress Medical History of the Patient</h3>
-        <table className="history-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Doctor</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {console.log("Medical 0000 History:", medicalHistory)}
-            {medicalHistory.length > 0 ? (
-              medicalHistory.map((history) => (
-              <tr key={history._id}>
-                <td>{history.patientId.studentId}</td>
-                <td>{history.doctorId.name}</td>
-                <td>{history.updatedAt}</td>
-                <td>{history.status}</td>
-                <td>
-                  <button
-                  className="btn btn-view"
-                  onClick={() => handleViewHistory(history.id)}
-                  >
-                    View
-                    </button>
-                    </td>
+          {/* In-progress Medical History Section */}
+          <div className="medical-history">
+            <h3>In Progress Medical History of the Patient</h3>
+            <table className="history-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Doctor</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {console.log("Medical 0000 History:", medicalHistory)}
+                {medicalHistory.length > 0 ? (
+                  medicalHistory.map((history) => (
+                    <tr key={history._id}>
+                      <td>{history.patientId.studentId}</td>
+                      <td>{history.doctorId.name}</td>
+                      <td>{history.updatedAt}</td>
+                      <td>{history.status}</td>
+                      <td>
+                        <button
+                          className="btn btn-view"
+                          onClick={() => handleViewHistory(history.id)}
+                        >
+                          View
+                        </button>
+                      </td>
                     </tr>
-                    ))
-                  ) : (
+                  ))
+                ) : (
                   <tr>
                     <td colSpan="5" style={{ textAlign: "center" }}>
                       No medical history available.
-                      </td>
-                      </tr>
-                    )}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    )}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </>
   );
 };
