@@ -39,6 +39,25 @@ const PatientProfile = ({ assignedPatient, onClose }) => {
 
   console.log("00000 Assigned patient:", assignedPatient);
 
+
+  const onClose_oprestions = () => {
+    console.log("Assigned --> 0000 Patient:", assignedPatient.patient._id);
+    if (window.confirm("Do you really want to remove the patient from the queue?")) {
+      axios.post("http://localhost:3000/api/removeAssignPatient", {
+      id: assignedPatient.patient._id,
+      })
+      .then((res) => {
+        alert("Patient removed from the queue");
+        console.log("Patient removed from the queue");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    }
+    onClose();
+  };
+
   const handleOpenMedicalHistory = () => {
     setShowMedicalHistory(true);
   };
@@ -76,7 +95,7 @@ const PatientProfile = ({ assignedPatient, onClose }) => {
           {/* Header Section */}
           <div className="profile-header">
             <h2>Patient Profile Page</h2>
-            <button className="close-btn" onClick={onClose}>X</button>
+            <button className="close-btn" onClick={onClose_oprestions}>X</button>
           </div>
 
           {/* Patient Information Section */}

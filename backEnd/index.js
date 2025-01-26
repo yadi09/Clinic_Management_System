@@ -14,6 +14,7 @@ import addDiseaseRouter from './routes/addDisease.js';
 import addPrescriptionRouter from './routes/addPrescription.js';
 import addReferralRouter from './routes/addReferral.js';
 import getMedicalHistoryRouter from './routes/getMedicalHistory.js';
+import removeAssignPatientRouter from './routes/removeAssignPatient.js';
 // import config from 'config';
 
 dotenv.config();
@@ -40,6 +41,7 @@ app.use('/api/addDisease', addDiseaseRouter);
 app.use('/api/addPrescription', addPrescriptionRouter);
 app.use('/api/addReferral', addReferralRouter);
 app.use('/api/getMedicalHistory', getMedicalHistoryRouter);
+app.use('/api/removeAssignPatient', removeAssignPatientRouter);
 
 // Port
 const port = process.env.PORT || 3000;

@@ -8,8 +8,8 @@ const PatientProfileUpdateForm = ({ patient }) => {
     cardNo: "",
     studentId: "",
     sex: "",
-    dob: "",
-    Region: "",
+    age: "",
+    region: "",
     wereda: "",
     kebele: "",
     houseNumber: "",
@@ -117,14 +117,14 @@ const PatientProfileUpdateForm = ({ patient }) => {
       </div>
       <div className="form-row">
         <label>Age</label>
-        <input type="text" value={age} placeholder="age" readOnly />
+        <input type="text" name="age" value={patientData.age} placeholder="age" readOnly />
       </div>
       <div className="form-row">
         <label>Address Region</label>
         <input
           type="text"
-          name="Region"
-          value={patientData.Region}
+          name="region"
+          value={patientData.region}
           onChange={handleChange}
           placeholder="Region"
         />

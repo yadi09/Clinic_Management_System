@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const patients = await PatientQueue.find().populate("patient").populate("doctor");
+    const patients = await PatientQueue.find().where("status").equals("waiting").populate("patient").populate("doctor");
     res.status(200).send(patients);
     console.log("Patients:", patients);
   } catch (error) {

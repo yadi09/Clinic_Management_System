@@ -32,6 +32,17 @@ const patients = () => {
     setSelectedPatient(null);
   };
 
+  // const handleDelete = async () => {
+  //   try {
+  //     await axios.delete(`http://localhost:3000/api/patients/${selectedPatient._id}`);
+  //     setPatientData(patientData.filter((patient) => patient._id !== selectedPatient._id));
+  //     handleCloseProfile();
+  //   } catch (error) {
+  //     console.error('Error deleting patient:', error);
+  //   }
+  // }
+  
+
   return (
     <>
       <div id="search-bar-section" className="search-bar-section hidden">
@@ -76,7 +87,6 @@ const patients = () => {
                       <button className="btn btn-view" onClick={() => handleViewClick(patient)}>
                         View
                       </button>
-                      <button className="btn btn-edit">Edit</button>
                       <button className="btn btn-delete">Delete</button>
                     </td>
                   </tr>
