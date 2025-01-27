@@ -67,8 +67,8 @@ const patients = () => {
                   <th>age</th>
                   <th>Gender</th>
                   <th>Department</th>
-                  <th>Year</th>
-                  <th>status</th>
+                  {/* <th>Year</th> */}
+                  {/* <th>status</th> */}
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -81,8 +81,8 @@ const patients = () => {
                     <td>{patient.age}</td>
                     <td>{patient.gender}</td>
                     <td>{patient.department}</td>
-                    <td>{patient.year}</td>
-                    <td>{patient.status}</td>
+                    {/* <td>{patient.year}</td> */}
+                    {/* <td>{patient.status}</td> */}
                     <td>
                       <button className="btn btn-view" onClick={() => handleViewClick(patient)}>
                         View
